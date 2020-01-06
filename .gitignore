@@ -13,10 +13,10 @@ L2/.idea/
 L2/cifar10_data/
 L2/cifar10_train/
 
-L3/.idea/
-L3/font/
-L3/nb_images/
-L3/.ipynb_checkpoints/
+L5/.idea/
+L5/font/
+L5/nb_images/
+L5/.ipynb_checkpoints/
 
 # Distribution / packaging
 .Python
