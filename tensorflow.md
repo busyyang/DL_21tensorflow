@@ -136,7 +136,7 @@
     ~~~
 7. 多个GPU训练可以参考项目中`cifar10_multi_gpu_train.py`文件，由于没有多个GPU,这个文件暂时没看；
 
-# 第三章目标检测
+# 第五章目标检测
 这章没有用书中的tensorflow Object Detection API,而是用的YOLO.
 源码来自于Andrew Ng深度学习项目的作业文件(只有prediction部分，没有train部分)。Keras的YOLO实现可参考https://github.com/qqwweee/keras-yolo3
 中文帮助博客：https://blog.csdn.net/weixin_40688204/article/details/89150010
