@@ -15,6 +15,10 @@ L2/cifar10_train/
 
 L3/.idea/
 
+L4/.idea/
+L4/*.pb
+L4/*.txt
+
 
 L5/.idea/
 L5/font/

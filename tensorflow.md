@@ -16,7 +16,7 @@
     
 # 第二章CIFAR
 1. 创建文件名队列`filename_queue = tf.train.string_input_producer(filename, shuffle=True, num_epochs=5)`,读取可用`reader = tf.WholeFileReader(); key, value = reader.read(filename_queue)`,在读取文件之前需要开始队列`threads = tf.train.start_queue_runners(sess=sess)`,例如：
-   ~~~
+   ~~~py
    # coding:utf-8
    # test.py
     import os
@@ -50,7 +50,7 @@
 
    ~~~
 2. 常见图像的数据增广的手段有:
-   ~~~
+   ~~~py
     # Randomly crop a [height, width] section of the image.
     distorted_image = tf.random_crop(reshaped_image, [height, width, 3])
 
@@ -64,14 +64,14 @@
    ~~~
 3. 使用tensorboard需要cd到项目文件夹下，然后`tensorboard --logdir cifar10_train`才行，或者`--logdir`后面跟绝对路径；
 4. 设置参数可以通过`FLAGS`,通过`tf.app.run()`获得设定的参数，并用于训练，如果程序入口在main，那么`tf.app.run()`或者`tf.app.run(main)`即可开始训练，如果程序入口为test,那么应该是`tf.app.run(test)`；
-    ~~~
+    ~~~py
     FLAGS = tf.app.flags.FLAGS
     tf.app.flags.DEFINE_string('train_dir', './cifar10_train',
                            """Directory where to write event logs """
                            """and checkpoint.""")
     ~~~
 5. 在使用tensorboard之前需要通过`tf.summary`将参数传输进去，可以定义一个函数进行；
-   ~~~
+   ~~~py
     def _activation_summary(x):
     """Helper to create summaries for activations.
 
@@ -92,12 +92,12 @@
     _activation_summary(conv1)
    ~~~
    将模型中所有可训练参数加入tensorboard：
-   ~~~
+   ~~~python
     for var in tf.trainable_variables():
         tf.summary.histogram(var.op.name, var)
    ~~~
 6. 训练过程中打印信息出来，不仅可以通过循环，还可以通过`tf.train.SessionRunHook`来进行，类似与keras中的callback函数;
-    ~~~
+    ~~~python
     class _LoggerHook(tf.train.SessionRunHook):
       """Logs loss and runtime."""
 
@@ -136,7 +136,45 @@
     ~~~
 7. 多个GPU训练可以参考项目中`cifar10_multi_gpu_train.py`文件，由于没有多个GPU,这个文件暂时没看；
 
+# 第三章图片分类
+1. 这章的分类是使用tensorflow slim进行的，使用预训练模型进行微调；
+2. 将图片文件放在`data_prepare`下，按照`train`和`validation`放好文件，每个子类用单独的文件夹放图片，运行`data_convert.py`即可得到`.tfrecord`文件；
+3. 需要传入参数，除了使用`sys.arg`以外，还可以用`argparse`;
+    ~~~py
+    # coding:utf-8
+    from __future__ import absolute_import
+    import argparse
+    import os
+    import logging
+
+    def parse_args():
+        parser = argparse.ArgumentParser()
+        parser.add_argument('-t', '--tensorflow-data-dir', default='pic/')
+        parser.add_argument('--train-shards', default=2, type=int)
+        parser.add_argument('--validation-shards', default=2, type=int)
+        parser.add_argument('--num-threads', default=2, type=int)
+        parser.add_argument('--dataset-name', default='satellite', type=str)
+        return parser.parse_args()
+
+    if __name__ == '__main__':
+        args = parse_args()
+    ~~~
+4. 下载slim的地址为`https://github.corn/tensorflow/models.git`;
+5. 根据新的训练集进行配置;
+6. 在训练前，先下载预训练模型放到`pretrained`文件夹下;
+7. 如果只针对最后几层进行训练的话，那么需要指定参数`--trainale_scope`,如果为`None`则表示都要训练；
+
+# 第四章DeepDream
+1. tensorflow读取文件可以用`tf.gfile.FastGFile(path,decodestyle)`，用法与`open`函数类似；
+2. `tf.GraphDef()`定义一个计算图，可以把参数放入，我的理解这是一个namespace;
+3. `tf.expand_dims(pa,axis)`在axis处添加一个维度，如果`pa`是4x3的，在axis=0出添加一个维度，那么结果是1x4x3的；
+4. 保存图片使用`scipy.misc.toimage()`函数已经不能用了(版本问题)，可以用`cv2.imwrite(filename,image_str)`;
+5. 由于个人对DeepDream项目的关注程度不高，这一章主要就是跑了一下代码，没有深入研究；
+
 # 第五章目标检测
 这章没有用书中的tensorflow Object Detection API,而是用的YOLO.
 源码来自于Andrew Ng深度学习项目的作业文件(只有prediction部分，没有train部分)。Keras的YOLO实现可参考https://github.com/qqwweee/keras-yolo3
 中文帮助博客：https://blog.csdn.net/weixin_40688204/article/details/89150010
+    -[] 阅读YOLO的几篇论文 
+1. 刚开始的目标检测思路是先Selective Search得到不同的可能区域，由于CNN的输入图片大小是固定的，使用R(Region)-CNN固定到同一大小然后用CNN提特征，SVM分类；
+2. SPPNet(空间金字塔池化卷积网络, Spatial Pyramid Pooling Convolutional Networks)使用ROI池化，可以使得输入可以是任意尺寸，但是输出是固定的；
