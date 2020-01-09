@@ -129,10 +129,10 @@ tf.app.flags.DEFINE_string(
     'Specifies how the learning rate is decayed. One of "fixed", "exponential",'
     ' or "polynomial"')
 
-tf.app.flags.DEFINE_float('learning_rate', 0.01, 'Initial learning rate.')
+tf.app.flags.DEFINE_float('learning_rate', 0.001, 'Initial learning rate.')
 
 tf.app.flags.DEFINE_float(
-    'end_learning_rate', 0.0001,
+    'end_learning_rate', 0.0000001,
     'The minimal end learning rate used by a polynomial decay learning rate.')
 
 tf.app.flags.DEFINE_float(
@@ -190,7 +190,7 @@ tf.app.flags.DEFINE_integer(
 tf.app.flags.DEFINE_integer(
     'train_image_size', None, 'Train image size')
 
-tf.app.flags.DEFINE_integer('max_number_of_steps', 10000,
+tf.app.flags.DEFINE_integer('max_number_of_steps', 100000,
                             'The maximum number of training steps.')
 
 #####################
@@ -207,7 +207,7 @@ tf.app.flags.DEFINE_string(
     'from a checkpoint.')
 
 tf.app.flags.DEFINE_string(
-    'trainable_scopes', 'InceptionV3/Logits,InceptionV3/AuxLogits',
+    'trainable_scopes', None,
     'Comma-separated list of scopes to filter the set of variables to train.'
     'By default, None would train all the variables.')
 

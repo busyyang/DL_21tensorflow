@@ -14,16 +14,26 @@ L2/cifar10_data/
 L2/cifar10_train/
 
 L3/.idea/
+L3/slim/satellite/
+L3/slim/satellite/
+L3/data_prepare/pic/
 
 L4/.idea/
 L4/*.pb
 L4/*.txt
+L4/*.zip
+
+L6/
 
 
 L5/.idea/
 L5/font/
 L5/nb_images/
 L5/.ipynb_checkpoints/
+
+
+L12/.idea/
+L12/model/
 
 # Distribution / packaging
 .Python
