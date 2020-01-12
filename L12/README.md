@@ -15,32 +15,18 @@ python train.py \
 
 测试模型：
 ```
-python sample.py \
-  --converter_path model/shakespeare/converter.pkl \
-  --checkpoint_path model/shakespeare/ \
-  --max_length 1000
+python sample.py --converter_path model/shakespeare/converter.pkl --checkpoint_path model/shakespeare/ --max_length 1000
 ```
 
 训练写诗模型：
 ```
-python train.py \
-  --use_embedding \
-  --input_file data/poetry.txt \
-  --name poetry \
-  --learning_rate 0.005 \
-  --num_steps 26 \
-  --num_seqs 32 \
-  --max_steps 10000
+python train.py --use_embedding --input_file data/poetry.txt --name poetry --learning_rate 0.005 --num_steps 26 --num_seqs 32 --max_steps 10000
 ```
 
 
 测试模型：
 ```
-python sample.py \
-  --use_embedding \
-  --converter_path model/poetry/converter.pkl \
-  --checkpoint_path model/poetry/ \
-  --max_length 300
+python sample.py --use_embedding --converter_path model/poetry/converter.pkl --checkpoint_path model/poetry/ --max_length 300
 ```
 
 训练生成C代码的模型：
