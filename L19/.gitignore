@@ -1,63 +1,25 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+*$py.class
 
 # C extensions
 *.so
 
-# data and IDEA files
-L1/.idea/
-L1/MINST_data/
-
-L2/.idea/
-L2/cifar10_data/
-L2/cifar10_train/
-
-L3/.idea/
-L3/slim/satellite/
-L3/slim/satellite/
-L3/data_prepare/pic/
-
-L4/.idea/
-L4/*.pb
-L4/*.txt
-L4/*.zip
-
-L6/
-
-
-L5/.idea/
-L5/font/
-L5/nb_images/
-L5/.ipynb_checkpoints/
-
-
-L12/.idea/
-L12/model/
-
-
-L13/.idea/
-L14/.idea/
-L14/*.zip
-L15/.idea/
-L16/.idea/
-L16/nmt/nmt_model
-
-L17/
-
 # Distribution / packaging
 .Python
-env/
 build/
 develop-eggs/
 dist/
 downloads/
 eggs/
+.eggs/
 lib/
 lib64/
 parts/
 sdist/
 var/
+wheels/
 *.egg-info/
 .installed.cfg
 *.egg
@@ -76,9 +38,12 @@ pip-delete-this-directory.txt
 htmlcov/
 .tox/
 .coverage
+.coverage.*
 .cache
 nosetests.xml
 coverage.xml
+*.cover
+.hypothesis/
 
 # Translations
 *.mo
@@ -86,6 +51,14 @@ coverage.xml
 
 # Django stuff:
 *.log
+local_settings.py
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
 
 # Sphinx documentation
 docs/_build/
@@ -93,10 +66,37 @@ docs/_build/
 # PyBuilder
 target/
 
-*.jpg
-*.png
-*.npy
-*.log
-*.npz
-*.pkl
-*.h5
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# celery beat schedule file
+celerybeat-schedule
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+
+# custom
+.ipynb
