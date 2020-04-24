@@ -1,4 +1,4 @@
-人脸识别网络相应是比较成熟的，其实完全没有必要自己进行训练，基本上来说就是先使用MTCNN进行人脸对齐，在大的图片中将人脸给截取出来，然后使用facenet进行检测，MTCNN与facenet都可以直接在网上下载到模型与weights文件的。可以直接在[davidsandberg/facenet](https://github.com/davidsandberg/facenet)下载到相应的文件。也可以找到21个项目玩转Tensorflow里面查找第六章的代码。
+人脸识别网络相应是比较成熟的，其实完全没有必要自己进行训练，基本上来说就是先使用MTCNN进行人脸对齐，在大的图片中将人脸给截取出来，然后使用facenet进行检测，MTCNN与facenet都可以直接在网上下载到模型与weights文件的。可以直接在[davidsandberg/facenet](https://github.com/davidsandberg/facenet)下载到相应的文件。也可以找到21个项目玩转Tensorflow里面查找[第六章](https://github.com/busyyang/DL_21tensorflow/tree/master/L6)的代码。
 
 首先使用MTCNN将图片中的人脸截取出来，可以使用[LFW](http://vis-www.cs.umass.edu/lfw/lfw.tgz)文件，将lfw的数据集下载下来解压到raw文件夹下，raw下就是每个人的目录。
 ~~~bash
@@ -10,6 +10,7 @@ python .\src\align\align_dataset_mtcnn.py
 --gpu_memory_fraction 0.6
 ~~~
 ![人脸项目目录](http://m.qpic.cn/psc?/V12DgbRP0a1TXP/PBfbIKZtAJlvfOqE04IdJUF2iEHElaJZY1KlZc2NflZayAjiuiUQpr4iwSkNlbYn30ECULIjwdGVKD7mAEtP9g!!/b&bo=UgLsAAAAAAADB54!&rf=viewer_4)
+
 这样会在`lfw`文件夹下生成mtcnn_160文件夹下生成相应的把人脸剪切出来的图片,最后一个参数gpu_memory_fraction视情况而定，默认是1，如果报`Failed to get convolution algorithm. This is probably because cuDNN failed to initialize, so try looking to see if a warning log message was printed above`这样的错误就加上一个小于1的数，如果还是有就继续改小。
 
 facenet的训练需要大量的图片，在个人电脑上训练是比较困难的事情，所以可以先用别人训练好的模型先看下效果，[下载预训练模型](https://gitlab.fit.cvut.cz/pitakma1/mvi-sp/tree/master/data/20170512-110547)（4个文件一起）放到models目录下，通过`src/validate_on_lfw.py`查看效果：
